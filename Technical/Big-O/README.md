@@ -29,3 +29,6 @@ circumstances.
 • In O(n2 + n), focus on O(n2) as it will dominate for large n.
 • Drop Constants
 • O(2n) simplifies to O(n).
+
+## Big O Cheat Sheet:
+https://www.bigocheatsheet.com/
