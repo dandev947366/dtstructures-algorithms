@@ -13,8 +13,9 @@ class LinkedList:
     def print_list(self):
         temp = self.head
         while temp is not None:
-            print(temp.value)
+            print(temp.value, end=" -> " if temp.next is not None else "\n")
             temp = temp.next
+            
     def append(self, value):
         new_node = Node(value)
         if self.length == 0:
@@ -76,22 +77,79 @@ class LinkedList:
             temp.value = value
             return True
         return False
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)    
+        temp = self.get(index-1)
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length += 1
+        return True
+    
+    def remove(self, index):
+        if index < 0 or index > self.length:
+            return False
+        if index==0:
+            return self.pop_first()
+        if index==self.length - 1:
+            return self.pop()   
+        prev = self.get(index-1)
+        temp = prev.next
+        prev.next = temp.next
+        temp.next = None
+        self.length -=1
+        return temp
         
-my_linked_list3 = LinkedList(0)
-my_linked_list3.append(1)
-my_linked_list3.append(2)
-my_linked_list3.append(3)
-node = my_linked_list3.get(2)
-if node:
-    print("Value at index 2:", node.value)
-else:
-    print("Index 2 is out of bounds")
-print(my_linked_list3.get(2))
-my_linked_list3.set(1, 4)
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        after = temp.next
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+            
+my_linked_list5 = LinkedList(1)
+my_linked_list5.append(2)
+my_linked_list5.append(3)
+my_linked_list5.append(4)
+
+my_linked_list5.print_list()
+my_linked_list5.reverse()
+print('Reversed linked list')
+my_linked_list5.print_list()
+
+# my_linked_list4 = LinkedList(0)
+# my_linked_list4.append(2)
+
+# my_linked_list4.insert(1,1)
+# my_linked_list4.print_list()
+
+# print(my_linked_list4.remove(2))
+# my_linked_list4.print_list()
+# my_linked_list3 = LinkedList(0)
+# my_linked_list3.append(1)
+# my_linked_list3.append(2)
+# my_linked_list3.append(3)
+# node = my_linked_list3.get(2)
+# if node:
+#     print("Value at index 2:", node.value)
+# else:
+#     print("Index 2 is out of bounds")
+# print(my_linked_list3.get(2))
+# my_linked_list3.set(1, 4)
 
 
-print("Updated list:")
-my_linked_list3.print_list()
+# print("Updated list:")
+# my_linked_list3.print_list()
 
 # my_linked_list = LinkedList(2)
 # my_linked_list.append(3)
