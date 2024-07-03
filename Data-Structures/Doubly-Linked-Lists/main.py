@@ -88,18 +88,69 @@ class DoublyLinkedList:
             temp.value = value
             return True
         return False
-        
-my_doubly_linked_list = DoublyLinkedList(11)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(23)
-my_doubly_linked_list.append(7)
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
 
-print('DLL before set_value():')
+        new_node = Node(value)
+        before = self.get(index - 1)
+        after = before.next
+
+        new_node.prev = before
+        new_node.next = after
+        before.next = new_node
+        after.prev = new_node
+        
+        self.length += 1   
+        return True  
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+
+        temp = self.get(index)
+        
+        temp.next.prev = temp.prev
+        temp.prev.next = temp.next
+        temp.next = None
+        temp.prev = None
+
+        self.length -= 1
+        return temp
+  
+
+
+
+my_doubly_linked_list = DoublyLinkedList(1)
+my_doubly_linked_list.append(2)
+my_doubly_linked_list.append(3)
+my_doubly_linked_list.append(4)
+my_doubly_linked_list.append(5)
+
+print('DLL before remove():')
 my_doubly_linked_list.print_list()
 
-my_doubly_linked_list.set_value(1,4)
+print('\nRemoved node:')
+print(my_doubly_linked_list.remove(2).value)
+print('DLL after remove() in middle:')
+my_doubly_linked_list.print_list()
 
-print('\nDLL after set_value():')
+print('\nRemoved node:')
+print(my_doubly_linked_list.remove(0).value)
+print('DLL after remove() of first node:')
+my_doubly_linked_list.print_list()
+
+print('\nRemoved node:')
+print(my_doubly_linked_list.remove(2).value)
+print('DLL after remove() of last node:')
 my_doubly_linked_list.print_list()
 
 
@@ -107,16 +158,32 @@ my_doubly_linked_list.print_list()
 """
     EXPECTED OUTPUT:
     ----------------
-    DLL before set_value():
-    11
+    DLL before remove():
+    1
+    2
     3
-    23
-    7
-
-    DLL after set_value():
-    11
     4
-    23
-    7
+    5
+
+    Removed node:
+    3
+    DLL after remove() in middle:
+    1
+    2
+    4
+    5
+
+    Removed node:
+    1
+    DLL after remove() of first node:
+    2
+    4
+    5
+
+    Removed node:
+    5
+    DLL after remove() of last node:
+    2
+    4
 
 """
