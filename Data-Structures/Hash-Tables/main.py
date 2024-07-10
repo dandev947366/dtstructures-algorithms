@@ -33,13 +33,14 @@ class HashTable:
                 for j in range(len(self.data_map[i])):
                     all_keys.append(self.data_map[i][j][0])
         return all_keys
-        
+    
+
 my_hash_table = HashTable()
 my_hash_table.set_item('bolts', 1400)
 my_hash_table.set_item('washers', 50)
 
-# print(my_hash_table.get_item('bolts'))
-# print(my_hash_table.get_item('washers'))
-# print(my_hash_table.get_item('lumber'))
+print(my_hash_table.get_item('bolts'))
+print(my_hash_table.get_item('washers'))
+print(my_hash_table.get_item('lumber'))
 print(my_hash_table.keys())
 my_hash_table.print_table()
