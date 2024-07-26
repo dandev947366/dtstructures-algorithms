@@ -62,6 +62,17 @@ class BinarySearchTree:
         traverse(self.root)
         return results
 
+    def dfs_in_order(self):
+        results = []
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            results.append(current_node.value) 
+            if current_node.right is not None:
+                traverse(current_node.right)          
+        traverse(self.root)
+        return results
+        
 
 
 
@@ -75,13 +86,18 @@ my_tree.insert(27)
 my_tree.insert(52)
 my_tree.insert(82)
 
-print(my_tree.dfs_post_order())
+print(my_tree.dfs_in_order())
 
 
 
 """
     EXPECTED OUTPUT:
     ----------------
-    [18, 27, 21, 52, 82, 76, 47]
+    [18, 21, 27, 47, 52, 76, 82]
 
  """
+
+
+
+
+
